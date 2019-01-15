@@ -8,9 +8,9 @@ class Response extends React.Component {
         <button className={`response ${isActive ? 'active' : ''}`} onMouseEnter={markActive.bind(null, id)}>{text}</button>
         <style jsx>{`
           .response {
-            display: block;
+            display: flex;
             font-size: 28px;
-            color: #11fb7f;
+            color: #cffee5;
             padding: 0;
             margin-bottom: 10px;
             margin-top: 0;
@@ -18,18 +18,21 @@ class Response extends React.Component {
             font-family: inherit;
             border: none;
             cursor: pointer;
+            text-align: left;
           }
 
           .response:before {
             content: '- ';
+            min-width: 30px;
           }
 
           .active {
-            color: #cffee5;
+            color: #11fb7f;
           }
 
           .active:before {
-            content: '+ ';
+            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAYAAAC3g3x9AAAAk0lEQVRIS2NkwAEqs2r+g6Tap7Uw4lKDTRynYpoZCHMFsS4l6EKaGUiswUS7kGgDYYGPHmNnFt1EETKJU0fh4wpTRpoZiO4imHNgLoPJE3Ip3IV0M5BUlxJ0IdUNxBWGuMKUoAupbiDVvUx1AwdPOhy8eZlQnYIuT6jkpn55SKwLCbkMZg7RLqSagcQaRLQLSTUQADejstfrzOXDAAAAAElFTkSuQmCC);
+            font-size: 0;
           }
         `}</style>
       </>
