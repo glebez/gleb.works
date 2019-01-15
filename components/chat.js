@@ -2,35 +2,22 @@ import React from "react";
 import Avatar from './avatar';
 import Messages from './messages';
 import Responses from './responses.js';
+import welcome from '../chat/scenes/welcome';
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        {
-          text: 'Hey brother!',
-        },
-        {
-          text: 'How are you today',
-        }
-      ],
+      messages: [],
       shownMessages: [],
-      responses: [
-        {
-          text: 'Im cool',
-          value: 'cool',
-          id: '1',
-        },
-        {
-          text: 'Im kinda not cool',
-          value: 'not cool',
-          id: '2',
-        }
-      ],
+      responses: [],
     };
 
     this.showNext = this.showNext.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState(welcome(), () => this.showNext());
   }
 
   showNext() {
