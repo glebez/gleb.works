@@ -11,6 +11,17 @@
     "precommit": "lint-staged",
     "eslint": "eslint '**/*.js'"
   },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "author": "Gleb Kost",
   "license": "ISC",
   "dependencies": {
