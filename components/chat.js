@@ -15,26 +15,47 @@ class Chat extends React.Component {
           text: 'How are you today',
         }
       ],
+      shownMessages: [],
       responses: [
         {
           text: 'Im cool',
           value: 'cool',
+          id: '1',
         },
         {
           text: 'Im kinda not cool',
           value: 'not cool',
+          id: '2',
         }
       ],
     };
+
+    this.showNext = this.showNext.bind(this);
   }
+
+  showNext() {
+    const { messages, shownMessages } = this.state;
+    if (!messages.length) {
+      this.setState({isDoneTyping: true});
+    } else {
+      const [next, ...rest] = messages;
+      this.setState({
+        isDoneTyping: false,
+        messages: rest,
+        shownMessages: [...shownMessages, next],
+      });
+    }
+  }
+
   render() {
+    const { isDoneTyping, shownMessages, responses } = this.state;
     return (
       <div className="chat">
         <div className="container">
           <Avatar />
           <div className="content">
-            <Messages messages={this.state.messages} />
-            <Responses responses={this.state.responses} />
+            <Messages messages={shownMessages} showNext={this.showNext} />
+      { isDoneTyping && <Responses responses={responses} /> }
           </div>
         </div>
         <style jsx>{`

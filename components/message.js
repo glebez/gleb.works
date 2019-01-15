@@ -1,10 +1,14 @@
 import React from "react";
+import Typing from 'react-typing-animation';
 
 class Message extends React.Component {
   render() {
+    const { showNext } = this.props;
     return (
       <div className="message">
+      <Typing onFinishedTyping={showNext}>
         <p className="message__copy">{this.props.text}</p>
+      </Typing>
         <style jsx>{`
           .message {
             position: relative;
