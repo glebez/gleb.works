@@ -2,10 +2,10 @@ import React from "react";
 
 class Response extends React.Component {
   render() {
-    const { isActive, text, markActive, id } = this.props;
+    const { onClick, isActive, text, markActive, id } = this.props;
     return (
       <>
-        <button className={`response ${isActive ? 'active' : ''}`} onMouseEnter={markActive.bind(null, id)}>{text}</button>
+        <button className={`response ${isActive ? 'active' : ''}`} onClick={onClick} onMouseEnter={markActive.bind(null, id)}>{text}</button>
         <style jsx>{`
           .response {
             display: flex;

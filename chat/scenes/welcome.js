@@ -1,5 +1,6 @@
 import Message from '../message';
 import Response from '../response';
+import professional from './professional';
 
 export default function welcome() {
   const messages = [
@@ -9,7 +10,7 @@ export default function welcome() {
   const responses = [
     [
       'Tell me about your professional life',
-      'prof',
+      professional,
     ],
     [
       'Personal stuff is what im after!',

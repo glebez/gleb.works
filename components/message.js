@@ -3,15 +3,19 @@ import Typing from 'react-typing-animation';
 
 class Message extends React.Component {
   render() {
-    const { showNext } = this.props;
+    const { showNext, isTypingEnabled } = this.props;
     return (
       <div className="message">
-      <Typing onFinishedTyping={showNext}>
-        <p className="message__copy">{this.props.text}</p>
-      </Typing>
+      { isTypingEnabled ?
+        <Typing onFinishedTyping={showNext} hideCursor speed={40}>
+          <p className="message__copy">{this.props.text}</p>
+        </Typing>
+        : <p className="message__copy">{this.props.text}</p>
+      }
         <style jsx>{`
           .message {
             position: relative;
+            min-height: 55px; //prevent collapsing on typing
             padding: 5px 20px;
             background-color: rgba(0,0,50,.7);
             border-style: outset;
@@ -20,6 +24,11 @@ class Message extends React.Component {
 
           .message__copy:before {
             content: '- ';
+          }
+
+          .message__copy {
+            margin-top: 5px;
+            margin-bottom: 10px;
           }
 
           .message + .message {

@@ -29,6 +29,10 @@ class Index extends React.Component {
             font-family: VT323;
             font-size: 24px;
           }
+
+          p {
+            margin: 0;
+          }
         `}
         </style>
       </div>

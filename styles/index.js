@@ -7,7 +7,7 @@ class IndexStyles extends React.Component {
           .root {
             position: relative;
             height: 100vh;
-            padding: 10px;
+            padding: 0 10px;
           }
           .root:before {
               content: '';
