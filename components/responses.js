@@ -6,7 +6,7 @@ class Responses extends React.Component {
     const { responses, handleResponse, activeResponseId, markResponseActive } = this.props;
     return (
       <>
-          {responses && responses.map(({text, id, value}) => <Response isActive={id === activeResponseId} text={text} key={id} id={id} markActive={markResponseActive} onClick={handleResponse.bind(null, value)} />)}
+          {responses && responses.map(({text, id, value}) => <Response isActive={id === activeResponseId} text={text} key={id} id={id} markActive={markResponseActive} onClick={handleResponse.bind(null, value, text)} />)}
       </>
   );
   }

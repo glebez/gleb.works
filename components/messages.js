@@ -7,7 +7,7 @@ class Messages extends React.Component {
     const { messages, showNext, isTypingEnabled } = this.props;
     return (
       <div className="container">
-          {messages && messages.map(({text}) => <Message text={text} key={text} showNext={showNext} isTypingEnabled={isTypingEnabled} />)}
+          {messages && messages.map(({text, author}) => <Message text={text} author={author} key={text} showNext={showNext} isTypingEnabled={isTypingEnabled} />)}
         <style jsx>{`
           .container {
             margin-bottom: 25px;

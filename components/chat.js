@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from './avatar';
+import Message from '../chat/message';
 import Messages from './messages';
 import Responses from './responses.js';
 import welcome from '../chat/scenes/welcome';
@@ -53,11 +54,16 @@ class Chat extends React.Component {
     this.setState({activeResponseId: id});
   }
 
-  handleResponse(cb) {
+  handleResponse(cb, text) {
     const { messages, responses } = cb();
+    const { shownMessages: oldShownMessages } = this.state;
     const activeResponseId = responses[0].id;
     const responseIds = responses.map(response => response.id);
-    this.setState({messages, responses, activeResponseId, responseIds}, () => this.showNext());
+    const shownMessages = text ? [
+      ...oldShownMessages,
+      new Message(text, 'user'),
+    ] : oldShownMessages;
+    this.setState({messages, shownMessages, responses, activeResponseId, responseIds}, () => this.showNext());
   }
 
   handleKeyDown(e) {
@@ -82,7 +88,8 @@ class Chat extends React.Component {
     if (e.key === 'Enter' && this.state.isDoneTyping) {
       const { responses, activeResponseId, responseIds } = this.state;
       if (activeResponseId) {
-        this.handleResponse(responses[responseIds.indexOf(activeResponseId)].value);
+        const response = responses[responseIds.indexOf(activeResponseId)];
+        this.handleResponse(response.value, response.text);
       }
     }
 

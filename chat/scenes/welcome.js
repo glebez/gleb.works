@@ -4,7 +4,7 @@ import professional from './professional';
 
 export default function welcome() {
   const messages = [
-    '!!', 'Hey there, it\'s me, Gleb!', 'Happy to see you on my page, wanna know more about me?'
+    '!!', 'Hey there, it\'s me, Gleb!\nHappy to see you on my page, wanna know more about me?'
   ].map(text => new Message(text));
 
   const responses = [

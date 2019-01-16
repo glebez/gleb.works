@@ -5,7 +5,7 @@ export default function professional() {
   const messages = [
     'Ah, great! Straight to business! No jimbo-jumbo, I like that.',
 
-'I am a web developer with 4+ years of experience. Throughout my career I was mostly focusing on frontend development, with a heavy emphasis on javascript and react, but in the past year I\'ve stretched over to cover full stack with node and express. Expo and React Native also gave me a chance to successfully pretend I can do mobile development. (There\'s even a working business app in AppStore that i\'ve built: [Astrd](https://itunes.apple.com/se/app/astrid/id1386270715).',
+'I am a web developer with 4+ years of experience. Throughout my career I was mostly focusing on frontend development, with a heavy emphasis on javascript and react, but in the past year I\'ve stretched over to cover full stack with node and express. Expo and React Native also gave me a chance to successfully pretend I can do mobile development. (There\'s even a working business app in AppStore that i\'ve built: [Astrid](https://itunes.apple.com/se/app/astrid/id1386270715).',
 
 'I have experience working in all sorts of companies from small fast-paced startups to huge transnational corporations. Here are a few worth mentioning, but not an exhaustive list:\n* Merck - American pharmaceutical corp - Frontend Developer, \n* SinnerSchrader - leading German digital agency (part of Accenture Interactive) - Frontend Developer, \n* Everyday -  Swedish HRtech startup - Dev lead',
 

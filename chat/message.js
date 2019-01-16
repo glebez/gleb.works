@@ -1,8 +1,9 @@
 import { v4 } from 'uuid';
 
 class Message {
-  constructor(text) {
+  constructor(text, author = "gleb") {
     this.text = text;
+    this.author = author;
     this.id = v4();
   }
 }
