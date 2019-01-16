@@ -3,13 +3,6 @@ import IndexStyles from '../styles/index.js';
 import Chat from '../components/chat';
 
 class Index extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [
-      ],
-    };
-  }
   render() {
     return (
       <div className="root">

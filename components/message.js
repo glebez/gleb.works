@@ -8,20 +8,33 @@ class Message extends React.Component {
       showNext();
     }
   }
+
+  parseText(text) {
+    const splitted = text.split(/(\[[^\[\]]+\]\([^)]+\))/);
+    return splitted.map(item => {
+      if (item[0] === '[') {
+        const [_, text, href] = item.match(/\[([^\[\]]+)\]\(([^)]+)/);
+        return <a target="_blank" href={href}>{text}</a>;
+      }
+      return item;
+    });
+  }
   render() {
-    const { showNext, isTypingEnabled } = this.props;
+    const { showNext, isTypingEnabled, text } = this.props;
+    const parsedText = this.parseText(text);
     return (
       <div className="message">
       { isTypingEnabled ?
         <Typing onFinishedTyping={showNext} hideCursor speed={40}>
-          <p className="message__copy">{this.props.text}</p>
+          <p className="message__copy">{parsedText}</p>
         </Typing>
-        : <p className="message__copy">{this.props.text}</p>
+        : <p className="message__copy">{parsedText}</p>
       }
         <style jsx>{`
           .message {
             position: relative;
             min-height: 55px; //prevent collapsing on typing
+            white-space: pre-wrap;
             padding: 5px 20px;
             background-color: rgba(0,0,50,.7);
             border-style: outset;
