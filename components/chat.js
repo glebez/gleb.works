@@ -14,6 +14,7 @@ class Chat extends React.Component {
       responses: [],
       activeResponseId: null,
       responseIds: [],
+      isTypingEnabled: true,
     };
 
     this.showNext = this.showNext.bind(this);
@@ -78,22 +79,28 @@ class Chat extends React.Component {
       this.setState({activeResponseId: responseIds[nextActiveResponseIndex]});
     }
 
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.state.isDoneTyping) {
       const { responses, activeResponseId, responseIds } = this.state;
-      this.handleResponse(responses[responseIds.indexOf(activeResponseId)].value);
+      if (activeResponseId) {
+        this.handleResponse(responses[responseIds.indexOf(activeResponseId)].value);
+      }
     }
 
   }
 
   render() {
-    const { isDoneTyping, shownMessages, responses, activeResponseId, messages, isTypingEnabled } = this.state;
+    const { isDoneTyping, shownMessages, responses, activeResponseId, isTypingEnabled } = this.state;
     return (
       <div className="chat" ref={this.scrollableContainer}>
         <div className="chat__inner">
           <div className="container">
             <Avatar />
             <div className="content">
-              <Messages messages={ isTypingEnabled ? shownMessages : messages} showNext={this.showNext} />
+              <Messages
+                messages={shownMessages}
+                showNext={this.showNext}
+                isTypingEnabled={isTypingEnabled}
+              />
         { (!isTypingEnabled || isDoneTyping) &&
           <Responses
             responses={responses}

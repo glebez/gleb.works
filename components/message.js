@@ -2,6 +2,12 @@ import React from "react";
 import Typing from 'react-typing-animation';
 
 class Message extends React.Component {
+  componentDidMount() {
+    const { showNext, isTypingEnabled } = this.props;
+    if (!isTypingEnabled) {
+      showNext();
+    }
+  }
   render() {
     const { showNext, isTypingEnabled } = this.props;
     return (
