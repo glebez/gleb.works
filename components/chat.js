@@ -1,14 +1,15 @@
 import React from "react";
 import Avatar from './avatar';
+import ChatBrain from '../chat';
 import Message from '../chat/message';
 import Messages from './messages';
 import Responses from './responses.js';
-import welcome from '../chat/scenes/welcome';
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.scrollableContainer = React.createRef();
+    this.chat = new ChatBrain();
     this.state = {
       messages: [],
       shownMessages: [],
@@ -26,7 +27,7 @@ class Chat extends React.Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
-    this.handleResponse(welcome);
+    this.handleResponse('welcome');
   }
 
   componentWillUnmount() {
@@ -54,8 +55,8 @@ class Chat extends React.Component {
     this.setState({activeResponseId: id});
   }
 
-  handleResponse(cb, text) {
-    const { messages, responses } = cb();
+  handleResponse(value, text) {
+    const { messages, responses } = this.chat.trigger(value);
     const { shownMessages: oldShownMessages } = this.state;
     const activeResponseId = responses[0].id;
     const responseIds = responses.map(response => response.id);
