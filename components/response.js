@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 class Response extends React.Component {
   render() {
     const { onClick, isActive, text, markActive, id, isMuted } = this.props;
+    const className = `response ${isActive ? 'active' : ''} ${isMuted ? 'muted' : ''}`;
     return (
-      <>
+      <React.Fragment>
         <button
-          className={`response ${isActive ? 'active' : ''} ${
-            isMuted ? 'muted' : ''
-          }`}
+          className={className}
           onClick={onClick}
           onMouseEnter={markActive.bind(null, id)}
         >
@@ -48,7 +47,7 @@ class Response extends React.Component {
             font-size: 0;
           }
         `}</style>
-      </>
+      </React.Fragment>
     );
   }
 }
