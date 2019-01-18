@@ -16,6 +16,7 @@ class Chat extends React.Component {
       responses: [],
       activeResponseId: null,
       responseIds: [],
+      chosenResponseIds: [],
       isTypingEnabled: true,
     };
 
@@ -55,16 +56,17 @@ class Chat extends React.Component {
     this.setState({activeResponseId: id});
   }
 
-  handleResponse(value, text) {
+  handleResponse(value, text, id) {
     const { messages, responses } = this.chat.trigger(value);
-    const { shownMessages: oldShownMessages } = this.state;
+    const { shownMessages: oldShownMessages, chosenResponseIds: oldChosenResponseIds } = this.state;
     const activeResponseId = responses[0].id;
     const responseIds = responses.map(response => response.id);
     const shownMessages = text ? [
       ...oldShownMessages,
       new Message(text, 'user'),
     ] : oldShownMessages;
-    this.setState({messages, shownMessages, responses, activeResponseId, responseIds}, () => this.showNext());
+    const chosenResponseIds = [...oldChosenResponseIds, id];
+    this.setState({messages, shownMessages, responses, activeResponseId, responseIds, chosenResponseIds}, () => this.showNext());
   }
 
   handleKeyDown(e) {
@@ -97,7 +99,7 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { isDoneTyping, shownMessages, responses, activeResponseId, isTypingEnabled } = this.state;
+    const { isDoneTyping, shownMessages, responses, activeResponseId, isTypingEnabled, chosenResponseIds } = this.state;
     return (
       <div className="chat" ref={this.scrollableContainer}>
         <div className="chat__inner">
@@ -113,6 +115,7 @@ class Chat extends React.Component {
           <Responses
             responses={responses}
             activeResponseId={activeResponseId}
+            chosenResponseIds={chosenResponseIds}
             handleResponse={this.handleResponse}
             markResponseActive={this.markResponseActive}
           /> }

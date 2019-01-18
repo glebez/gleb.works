@@ -2,12 +2,14 @@ import scenes from './scenes';
 
 class Chat {
   constructor() {
-    this.state = {};
+    this.state = {
+      isNew: true,
+    };
     this.scenes = scenes;
   }
 
   trigger(sceneName) {
-    return this.scenes[sceneName]();
+    return this.scenes[sceneName](this.state);
   }
 
 }
