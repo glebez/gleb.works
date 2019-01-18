@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Message from './message';
-import Typing from 'react-typing-animation';
 
 class Messages extends React.Component {
   render() {
@@ -26,5 +26,11 @@ class Messages extends React.Component {
     );
   }
 }
+
+Messages.propTypes = {
+  messages: PropTypes.array,
+  showNext: PropTypes.func,
+  isTypingEnabled: PropTypes.bool,
+};
 
 export default Messages;

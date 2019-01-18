@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Response extends React.Component {
   render() {
@@ -51,5 +52,14 @@ class Response extends React.Component {
     );
   }
 }
+
+Response.propTypes = {
+  onClick: PropTypes.func,
+  markActive: PropTypes.func,
+  isActive: PropTypes.bool,
+  isMuted: PropTypes.bool,
+  text: PropTypes.string,
+  id: PropTypes.string,
+};
 
 export default Response;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typing from 'react-typing-animation';
 
 class Message extends React.Component {
@@ -10,12 +11,14 @@ class Message extends React.Component {
   }
 
   parseText(text) {
+    /* eslint-disable no-useless-escape */
     const splitted = text.split(/(\[[^\[\]]+\]\([^)]+\))/);
     return splitted.map(item => {
       if (item[0] === '[') {
         const [_, text, href] = item.match(/\[([^\[\]]+)\]\(([^)]+)/);
+        /* eslint-enable no-useless-escape */
         return (
-          <a target="_blank" href={href}>
+          <a target="_blank" rel="noopener noreferrer" href={href}>
             {text}
           </a>
         );
@@ -69,5 +72,12 @@ class Message extends React.Component {
     );
   }
 }
+
+Message.propTypes = {
+  text: PropTypes.string,
+  author: PropTypes.string,
+  showNext: PropTypes.func,
+  isTypingEnabled: PropTypes.bool,
+};
 
 export default Message;

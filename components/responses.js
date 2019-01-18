@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Response from './response';
 
 class Responses extends React.Component {
@@ -32,5 +33,13 @@ class Responses extends React.Component {
     );
   }
 }
+
+Responses.propTypes = {
+  responses: PropTypes.arrayOf(PropTypes.object),
+  handleResponse: PropTypes.func,
+  activeResponseId: PropTypes.string,
+  chosenResponseIds: PropTypes.arrayOf(PropTypes.string),
+  markResponseActive: PropTypes.func,
+};
 
 export default Responses;
