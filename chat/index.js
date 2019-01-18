@@ -11,7 +11,6 @@ class Chat {
   trigger(sceneName) {
     return this.scenes[sceneName](this.state);
   }
-
 }
 
 export default Chat;

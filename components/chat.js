@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Avatar from './avatar';
 import ChatBrain from '../chat';
 import Message from '../chat/message';
@@ -37,11 +37,14 @@ class Chat extends React.Component {
 
   showNext() {
     const { messages, shownMessages } = this.state;
-    if( this.scrollableContainer.current) {
-      this.scrollableContainer.current.scrollTo(0, this.scrollableContainer.current.scrollHeight);
+    if (this.scrollableContainer.current) {
+      this.scrollableContainer.current.scrollTo(
+        0,
+        this.scrollableContainer.current.scrollHeight
+      );
     }
     if (!messages.length) {
-      this.setState({isDoneTyping: true});
+      this.setState({ isDoneTyping: true });
     } else {
       const [next, ...rest] = messages;
       this.setState({
@@ -53,39 +56,51 @@ class Chat extends React.Component {
   }
 
   markResponseActive(id) {
-    this.setState({activeResponseId: id});
+    this.setState({ activeResponseId: id });
   }
 
   handleResponse(value, text, id) {
     const { messages, responses } = this.chat.trigger(value);
-    const { shownMessages: oldShownMessages, chosenResponseIds: oldChosenResponseIds } = this.state;
+    const {
+      shownMessages: oldShownMessages,
+      chosenResponseIds: oldChosenResponseIds,
+    } = this.state;
     const activeResponseId = responses[0].id;
     const responseIds = responses.map(response => response.id);
-    const shownMessages = text ? [
-      ...oldShownMessages,
-      new Message(text, 'user'),
-    ] : oldShownMessages;
+    const shownMessages = text
+      ? [...oldShownMessages, new Message(text, 'user')]
+      : oldShownMessages;
     const chosenResponseIds = [...oldChosenResponseIds, id];
-    this.setState({messages, shownMessages, responses, activeResponseId, responseIds, chosenResponseIds}, () => this.showNext());
+    this.setState(
+      {
+        messages,
+        shownMessages,
+        responses,
+        activeResponseId,
+        responseIds,
+        chosenResponseIds,
+      },
+      () => this.showNext()
+    );
   }
 
   handleKeyDown(e) {
-    if(e.key === 'ArrowDown') {
+    if (e.key === 'ArrowDown') {
       const { activeResponseId, responseIds } = this.state;
       let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
       if (nextActiveResponseIndex >= responseIds.length) {
-        nextActiveResponseIndex = 0
+        nextActiveResponseIndex = 0;
       }
-      this.setState({activeResponseId: responseIds[nextActiveResponseIndex]});
+      this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
     }
 
-    if(e.key === 'ArrowUp') {
+    if (e.key === 'ArrowUp') {
       const { activeResponseId, responseIds } = this.state;
       let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
       if (nextActiveResponseIndex < 0) {
-        nextActiveResponseIndex = responseIds.length -1;
+        nextActiveResponseIndex = responseIds.length - 1;
       }
-      this.setState({activeResponseId: responseIds[nextActiveResponseIndex]});
+      this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
     }
 
     if (e.key === 'Enter' && this.state.isDoneTyping) {
@@ -95,11 +110,17 @@ class Chat extends React.Component {
         this.handleResponse(response.value, response.text);
       }
     }
-
   }
 
   render() {
-    const { isDoneTyping, shownMessages, responses, activeResponseId, isTypingEnabled, chosenResponseIds } = this.state;
+    const {
+      isDoneTyping,
+      shownMessages,
+      responses,
+      activeResponseId,
+      isTypingEnabled,
+      chosenResponseIds,
+    } = this.state;
     return (
       <div className="chat" ref={this.scrollableContainer}>
         <div className="chat__inner">
@@ -111,14 +132,15 @@ class Chat extends React.Component {
                 showNext={this.showNext}
                 isTypingEnabled={isTypingEnabled}
               />
-        { (!isTypingEnabled || isDoneTyping) &&
-          <Responses
-            responses={responses}
-            activeResponseId={activeResponseId}
-            chosenResponseIds={chosenResponseIds}
-            handleResponse={this.handleResponse}
-            markResponseActive={this.markResponseActive}
-          /> }
+              {(!isTypingEnabled || isDoneTyping) && (
+                <Responses
+                  responses={responses}
+                  activeResponseId={activeResponseId}
+                  chosenResponseIds={chosenResponseIds}
+                  handleResponse={this.handleResponse}
+                  markResponseActive={this.markResponseActive}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -152,7 +174,7 @@ class Chat extends React.Component {
           }
         `}</style>
       </div>
-  );
+    );
   }
 }
 

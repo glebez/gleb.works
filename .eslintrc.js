@@ -1,22 +1,22 @@
 module.exports = {
   env: {
     browser: true,
-    es6: true
+    es6: true,
   },
-  parser: "babel-eslint",
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  parser: 'babel-eslint',
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
-    sourceType: "module",
+    sourceType: 'module',
     ecmaVersion: 8,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
       modules: true,
-      jsx: true
-    }
+      jsx: true,
+    },
   },
-  plugins: ["react"],
+  plugins: ['react'],
   rules: {
-    "linebreak-style": ["error", "unix"],
-    "no-unused-vars": [2, { varsIgnorePattern: "^_" }]
-  }
+    'linebreak-style': ['error', 'unix'],
+    'no-unused-vars': [2, { varsIgnorePattern: '^_' }],
+  },
 };

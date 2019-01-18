@@ -1,11 +1,19 @@
-import React from "react";
+import React from 'react';
 
 class Response extends React.Component {
   render() {
     const { onClick, isActive, text, markActive, id, isMuted } = this.props;
     return (
       <>
-        <button className={`response ${isActive ? 'active' : ''} ${isMuted ? 'muted' : ''}`} onClick={onClick} onMouseEnter={markActive.bind(null, id)}>{text}</button>
+        <button
+          className={`response ${isActive ? 'active' : ''} ${
+            isMuted ? 'muted' : ''
+          }`}
+          onClick={onClick}
+          onMouseEnter={markActive.bind(null, id)}
+        >
+          {text}
+        </button>
         <style jsx>{`
           .response {
             display: flex;
@@ -40,7 +48,7 @@ class Response extends React.Component {
           }
         `}</style>
       </>
-  );
+    );
   }
 }
 
