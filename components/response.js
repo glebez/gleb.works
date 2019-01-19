@@ -46,6 +46,11 @@ class Response extends React.Component {
             content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAYAAAC3g3x9AAAAk0lEQVRIS2NkwAEqs2r+g6Tap7Uw4lKDTRynYpoZCHMFsS4l6EKaGUiswUS7kGgDYYGPHmNnFt1EETKJU0fh4wpTRpoZiO4imHNgLoPJE3Ip3IV0M5BUlxJ0IdUNxBWGuMKUoAupbiDVvUx1AwdPOhy8eZlQnYIuT6jkpn55SKwLCbkMZg7RLqSagcQaRLQLSTUQADejstfrzOXDAAAAAElFTkSuQmCC);
             font-size: 0;
           }
+          @media screen and (max-width: 500px) {
+            .response {
+              font-size: 24px;
+            }
+          }
         `}</style>
       </React.Fragment>
     );

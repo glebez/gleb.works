@@ -14,6 +14,12 @@ class Avatar extends React.Component {
             height: 100px;
             margin-right: 40px;
           }
+
+          @media screen and (max-width: 500px) {
+            .avatar {
+              margin-right: 0;
+            }
+          }
         `}</style>
       </React.Fragment>
     );

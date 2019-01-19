@@ -40,6 +40,12 @@ class Index extends React.Component {
               filter: blur(0.5px) brightness(0.6);
             }
           }
+
+          @media screen and (max-width: 500px) {
+            .root {
+              padding: 0;
+            }
+          }
         `}</style>
         <style global jsx>
           {`
@@ -59,6 +65,7 @@ class Index extends React.Component {
             }
             a {
               color: #11fb7f;
+              word-break: break-all;
             }
 
             p {

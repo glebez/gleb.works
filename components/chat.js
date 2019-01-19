@@ -24,6 +24,11 @@ class Chat extends React.Component {
     this.handleResponse = this.handleResponse.bind(this);
     this.markResponseActive = this.markResponseActive.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   componentDidMount() {
@@ -35,14 +40,17 @@ class Chat extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  showNext() {
-    const { messages, shownMessages } = this.state;
+  scrollToBottom() {
     if (this.scrollableContainer.current) {
       this.scrollableContainer.current.scrollTo(
         0,
         this.scrollableContainer.current.scrollHeight
       );
     }
+  }
+
+  showNext() {
+    const { messages, shownMessages } = this.state;
     if (!messages.length) {
       this.setState({ isDoneTyping: true });
     } else {
@@ -131,6 +139,7 @@ class Chat extends React.Component {
                 messages={shownMessages}
                 showNext={this.showNext}
                 isTypingEnabled={isTypingEnabled}
+                scrollToBottom={this.scrollToBottom}
               />
               {(!isTypingEnabled || isDoneTyping) && (
                 <Responses
@@ -171,6 +180,18 @@ class Chat extends React.Component {
             flex: 1;
             position: relative;
             padding: 25px;
+          }
+
+          @media screen and (max-width: 500px) {
+            .container {
+              flex-direction: column;
+              align-items: center;
+              justify-content: stretch;
+            }
+
+            .chat {
+              padding: 10px 0;
+            }
           }
         `}</style>
       </div>

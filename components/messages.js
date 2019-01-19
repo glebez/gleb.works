@@ -4,7 +4,7 @@ import Message from './message';
 
 class Messages extends React.Component {
   render() {
-    const { messages, showNext, isTypingEnabled } = this.props;
+    const { messages, showNext, isTypingEnabled, scrollToBottom } = this.props;
     return (
       <div className="container">
         {messages &&
@@ -15,6 +15,7 @@ class Messages extends React.Component {
               key={text}
               showNext={showNext}
               isTypingEnabled={isTypingEnabled}
+              scrollToBottom={scrollToBottom}
             />
           ))}
         <style jsx>{`
@@ -30,6 +31,7 @@ class Messages extends React.Component {
 Messages.propTypes = {
   messages: PropTypes.array,
   showNext: PropTypes.func,
+  scrollToBottom: PropTypes.func,
   isTypingEnabled: PropTypes.bool,
 };
 

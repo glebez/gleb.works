@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import Typing from 'react-typing-animation';
 
 class Message extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onStartedTyping = this.onStartedTyping.bind(this);
+    this.onFinishedTyping = this.onFinishedTyping.bind(this);
+  }
+
   componentDidMount() {
     const { showNext, isTypingEnabled } = this.props;
     if (!isTypingEnabled) {
@@ -18,7 +25,7 @@ class Message extends React.Component {
         const [_, text, href] = item.match(/\[([^\[\]]+)\]\(([^)]+)/);
         /* eslint-enable no-useless-escape */
         return (
-          <a target="_blank" rel="noopener noreferrer" href={href}>
+          <a key={href} target="_blank" rel="noopener noreferrer" href={href}>
             {text}
           </a>
         );
@@ -26,13 +33,25 @@ class Message extends React.Component {
       return item;
     });
   }
+
+  onStartedTyping() {
+    const { scrollToBottom } = this.props;
+    this.scrollerInterval = setInterval(scrollToBottom, 50);
+  }
+
+  onFinishedTyping() {
+    const { showNext } = this.props;
+    clearInterval(this.scrollerInterval);
+    showNext();
+  }
+
   render() {
-    const { showNext, isTypingEnabled, text, author } = this.props;
+    const { isTypingEnabled, text, author } = this.props;
     const parsedText = this.parseText(text);
     return (
       <div className={`message ${author === 'gleb' ? '' : 'message--user'}`}>
         {isTypingEnabled && author === 'gleb' ? (
-          <Typing onFinishedTyping={showNext} hideCursor speed={20}>
+          <Typing onFinishedTyping={this.onFinishedTyping} onStartedTyping={this.onStartedTyping} hideCursor speed={20}>
             <p className="message__copy">{parsedText}</p>
           </Typing>
         ) : (
@@ -77,6 +96,7 @@ Message.propTypes = {
   text: PropTypes.string,
   author: PropTypes.string,
   showNext: PropTypes.func,
+  scrollToBottom: PropTypes.func,
   isTypingEnabled: PropTypes.bool,
 };
 
