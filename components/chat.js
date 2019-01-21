@@ -52,7 +52,7 @@ class Chat extends React.Component {
   showNext() {
     const { messages, shownMessages } = this.state;
     if (!messages.length) {
-      this.setState({ isDoneTyping: true });
+      this.setState({ isDoneTyping: true }, () => this.scrollToBottom());
     } else {
       const [next, ...rest] = messages;
       this.setState({
@@ -130,7 +130,7 @@ class Chat extends React.Component {
       chosenResponseIds,
     } = this.state;
     return (
-      <div className="chat" ref={this.scrollableContainer}>
+      <div className={`chat ${isDoneTyping ? '' : 'chat--locked'}`} ref={this.scrollableContainer}>
         <div className="chat__inner">
           <div className="container">
             <Avatar />
@@ -159,6 +159,11 @@ class Chat extends React.Component {
             height: 100%;
             overflow-y: auto;
             padding: 0 15px;
+          }
+          .chat--locked {
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
           }
           .chat__inner {
             display: flex;
