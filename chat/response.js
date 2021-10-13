@@ -1,10 +1,10 @@
-import { v4 } from 'uuid';
+let id = 0;
 
 class Response {
   constructor(text, value) {
     this.text = text;
     this.value = value;
-    this.id = v4();
+    this.id = `resp-${id++}`;
   }
 }
 

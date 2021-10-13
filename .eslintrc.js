@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    node: true,
   },
   parser: 'babel-eslint',
   extends: ['eslint:recommended', 'plugin:react/recommended'],
@@ -18,5 +19,10 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'unix'],
     'no-unused-vars': [2, { varsIgnorePattern: '^_' }],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };
