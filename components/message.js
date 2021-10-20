@@ -50,8 +50,14 @@ class Message extends React.Component {
     const parsedText = this.parseText(text);
     return (
       <div className={`message ${author === 'gleb' ? '' : 'message--user'}`}>
+        <p style={{ visibility: 'hidden' }}>{parsedText}</p>
         {isTypingEnabled && author === 'gleb' ? (
-          <Typing onFinishedTyping={this.onFinishedTyping} onStartedTyping={this.onStartedTyping} hideCursor speed={20}>
+          <Typing
+            onFinishedTyping={this.onFinishedTyping}
+            onStartedTyping={this.onStartedTyping}
+            hideCursor
+            speed={20}
+          >
             <p className="message__copy">{parsedText}</p>
           </Typing>
         ) : (
@@ -79,8 +85,11 @@ class Message extends React.Component {
           }
 
           .message__copy {
-            margin-top: 5px;
-            margin-bottom: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 20px;
           }
 
           .message + .message {
