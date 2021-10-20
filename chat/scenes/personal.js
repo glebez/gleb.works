@@ -9,8 +9,8 @@ export default function personal(state) {
   }
   messages = [
     ...messages,
-    "My name is Gleb Kost and Im a web dev. I've been born and raised in Moscow, Russia, but since 2014 im living in beautiful Prague, Czech Republic. I have a fluent command of English, intermediate Czech and Russian as a mother tongue. I've also studied German in school, but 'Genau' is pretty much all I can say.",
-    "In my free time I enjoy one or more of the following:\n* hanging out with my girlfriend Alenka and husky named Danny\n* riding my Vespa scooter and doing some newbie mechanic work\n* travelling Europe by car\n* strength training in the gym\n* fighting my GTD setup\n* binge watching netflix\n* farming stackoverflow for easy points (it's so addicitive)",
+    "My name is Gleb Kostyunin and Im a web dev. I've been all around: born and raised in Moscow, Russia, have lived in beautiful Prague, Czech Republic 2014-2019 and for the last couple of years I am in Munich, Germany. I have a fluent command of English, intermediate German and Czech. Russian is my  mother tongue. ",
+    'In my free time I enjoy one or more of the following:\n* hanging out with my wife Alenka and husky named Danny\n* riding my Vespa scooter and doing some newbie mechanic work\n* travelling Europe by car\n* cooking a looot\n* ranting about how web development got so much more complicated lately\n* binge watching all kinds of series (not a fan of Netflix though)\n* day dreaming about travelling more',
   ];
 
   return {
