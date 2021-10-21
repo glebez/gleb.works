@@ -12,7 +12,7 @@ class Responses extends React.Component {
       markResponseActive,
     } = this.props;
     return (
-      <>
+      <div className="container">
         {responses &&
           responses.map(({ text, id, value }) => {
             const isActive = id === activeResponseId;
@@ -29,7 +29,13 @@ class Responses extends React.Component {
               />
             );
           })}
-      </>
+        <style jsx>{`
+          .container {
+            grid-column-start: 2;
+            margin-bottom: 25px;
+          }
+        `}</style>
+      </div>
     );
   }
 }

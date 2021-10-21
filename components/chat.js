@@ -8,7 +8,6 @@ import Responses from './responses.js';
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-    this.scrollableContainer = React.createRef();
     this.chat = new ChatBrain();
     this.state = {
       messages: [],
@@ -24,11 +23,6 @@ class Chat extends React.Component {
     this.handleResponse = this.handleResponse.bind(this);
     this.markResponseActive = this.markResponseActive.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
-  }
-
-  componentDidUpdate() {
-    this.scrollToBottom();
   }
 
   componentDidMount() {
@@ -40,19 +34,10 @@ class Chat extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  scrollToBottom() {
-    if (this.scrollableContainer.current) {
-      this.scrollableContainer.current.scrollTo(
-        0,
-        this.scrollableContainer.current.scrollHeight
-      );
-    }
-  }
-
   showNext() {
     const { messages, shownMessages } = this.state;
     if (!messages.length) {
-      this.setState({ isDoneTyping: true }, () => this.scrollToBottom());
+      this.setState({ isDoneTyping: true });
     } else {
       const [next, ...rest] = messages;
       this.setState({
@@ -130,73 +115,35 @@ class Chat extends React.Component {
       chosenResponseIds,
     } = this.state;
     return (
-      <div className={`chat ${isDoneTyping ? '' : 'chat--locked'}`} ref={this.scrollableContainer}>
+      <div className="chat">
         <div className="chat__inner">
-          <div className="container">
-            <Avatar />
-            <div className="content">
-              <Messages
-                messages={shownMessages}
-                showNext={this.showNext}
-                isTypingEnabled={isTypingEnabled}
-                scrollToBottom={this.scrollToBottom}
-              />
-              {(!isTypingEnabled || isDoneTyping) && (
-                <Responses
-                  responses={responses}
-                  activeResponseId={activeResponseId}
-                  chosenResponseIds={chosenResponseIds}
-                  handleResponse={this.handleResponse}
-                  markResponseActive={this.markResponseActive}
-                />
-              )}
-            </div>
-          </div>
+          <Avatar />
+          <Messages
+            messages={shownMessages}
+            showNext={this.showNext}
+            isTypingEnabled={isTypingEnabled}
+          />
+          {(!isTypingEnabled || isDoneTyping) && (
+            <Responses
+              responses={responses}
+              activeResponseId={activeResponseId}
+              chosenResponseIds={chosenResponseIds}
+              handleResponse={this.handleResponse}
+              markResponseActive={this.markResponseActive}
+            />
+          )}
         </div>
         <style jsx>{`
           .chat {
             position: relative;
-            height: 100%;
-            overflow-y: auto;
-            padding: 0 15px;
-          }
-          .chat--locked {
-            display: flex;
-            flex-direction: column;
-            overflow-y: hidden;
           }
           .chat__inner {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: stretch;
-            min-height: 100%;
-          }
-          .container {
-            display: flex;
-            width: 100%;
-            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr 9fr;
+            grid-template-rows: 3fr 1fr;
+            height: 100vh;
+            max-width: 900px;
             margin: 0 auto;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex: 1;
-          }
-          .content {
-            flex: 1;
-            position: relative;
-            padding: 25px;
-          }
-
-          @media screen and (max-width: 500px) {
-            .container {
-              flex-direction: column;
-              align-items: center;
-              justify-content: stretch;
-            }
-
-            .chat {
-              padding: 10px 0;
-            }
           }
         `}</style>
       </div>
