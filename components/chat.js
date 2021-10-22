@@ -13,24 +13,15 @@ class Chat extends React.Component {
       messages: [],
       shownMessages: [],
       responses: [],
-      activeResponseId: null,
-      responseIds: [],
       chosenResponseIds: [],
     };
 
     this.showNext = this.showNext.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
-    this.markResponseActive = this.markResponseActive.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
     this.handleResponse('welcome');
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   showNext() {
@@ -47,18 +38,12 @@ class Chat extends React.Component {
     }
   }
 
-  markResponseActive(id) {
-    this.setState({ activeResponseId: id });
-  }
-
   handleResponse(value, text, id) {
     const { messages, responses } = this.chat.trigger(value);
     const {
       shownMessages: oldShownMessages,
       chosenResponseIds: oldChosenResponseIds,
     } = this.state;
-    const activeResponseId = responses[0].id;
-    const responseIds = responses.map(response => response.id);
     const shownMessages = text
       ? [...oldShownMessages, new Message(text, 'user')]
       : oldShownMessages;
@@ -68,43 +53,10 @@ class Chat extends React.Component {
         messages,
         shownMessages,
         responses,
-        activeResponseId,
-        responseIds,
         chosenResponseIds,
       },
       () => this.showNext()
     );
-  }
-
-  handleKeyDown(e) {
-    if (!this.state.isDoneTyping) {
-      return;
-    }
-    if (e.key === 'ArrowDown') {
-      const { activeResponseId, responseIds } = this.state;
-      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
-      if (nextActiveResponseIndex >= responseIds.length) {
-        nextActiveResponseIndex = 0;
-      }
-      this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
-    }
-
-    if (e.key === 'ArrowUp') {
-      const { activeResponseId, responseIds } = this.state;
-      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
-      if (nextActiveResponseIndex < 0) {
-        nextActiveResponseIndex = responseIds.length - 1;
-      }
-      this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
-    }
-
-    if (e.key === 'Enter') {
-      const { responses, activeResponseId, responseIds } = this.state;
-      if (activeResponseId) {
-        const response = responses[responseIds.indexOf(activeResponseId)];
-        this.handleResponse(response.value, response.text);
-      }
-    }
   }
 
   render() {
@@ -112,7 +64,6 @@ class Chat extends React.Component {
       isDoneTyping,
       shownMessages,
       responses,
-      activeResponseId,
       chosenResponseIds,
     } = this.state;
     return (
@@ -123,7 +74,6 @@ class Chat extends React.Component {
           {isDoneTyping && (
             <Responses
               responses={responses}
-              activeResponseId={activeResponseId}
               chosenResponseIds={chosenResponseIds}
               handleResponse={this.handleResponse}
               markResponseActive={this.markResponseActive}
