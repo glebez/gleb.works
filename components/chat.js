@@ -16,7 +16,6 @@ class Chat extends React.Component {
       activeResponseId: null,
       responseIds: [],
       chosenResponseIds: [],
-      isTypingEnabled: true,
     };
 
     this.showNext = this.showNext.bind(this);
@@ -78,6 +77,9 @@ class Chat extends React.Component {
   }
 
   handleKeyDown(e) {
+    if (!this.state.isDoneTyping) {
+      return;
+    }
     if (e.key === 'ArrowDown') {
       const { activeResponseId, responseIds } = this.state;
       let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
@@ -96,7 +98,7 @@ class Chat extends React.Component {
       this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
     }
 
-    if (e.key === 'Enter' && this.state.isDoneTyping) {
+    if (e.key === 'Enter') {
       const { responses, activeResponseId, responseIds } = this.state;
       if (activeResponseId) {
         const response = responses[responseIds.indexOf(activeResponseId)];
@@ -111,19 +113,14 @@ class Chat extends React.Component {
       shownMessages,
       responses,
       activeResponseId,
-      isTypingEnabled,
       chosenResponseIds,
     } = this.state;
     return (
       <div className="chat">
         <div className="chat__inner">
           <Avatar />
-          <Messages
-            messages={shownMessages}
-            showNext={this.showNext}
-            isTypingEnabled={isTypingEnabled}
-          />
-          {(!isTypingEnabled || isDoneTyping) && (
+          <Messages messages={shownMessages} showNext={this.showNext} />
+          {isDoneTyping && (
             <Responses
               responses={responses}
               activeResponseId={activeResponseId}

@@ -6,14 +6,29 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isTypingEnabled: true,
+    };
+
     this.onStartedTyping = this.onStartedTyping.bind(this);
     this.onFinishedTyping = this.onFinishedTyping.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentDidMount() {
-    const { showNext, isTypingEnabled } = this.props;
-    if (!isTypingEnabled) {
-      showNext();
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(e) {
+    const canSkipTyping =
+      this.state.isTypingEnabled && this.props.author === 'gleb';
+    if ((e.key === 'Enter' || e.key === 'Space') && canSkipTyping) {
+      this.setState({ isTypingEnabled: false });
+      this.onFinishedTyping();
     }
   }
 
@@ -42,15 +57,17 @@ class Message extends React.Component {
   onFinishedTyping() {
     const { showNext } = this.props;
     clearInterval(this.scrollerInterval);
+    document.removeEventListener('keydown', this.handleKeyDown);
     showNext();
   }
 
   render() {
-    const { isTypingEnabled, text, author } = this.props;
+    const { text, author } = this.props;
+    const { isTypingEnabled } = this.state;
     const parsedText = this.parseText(text);
     return (
       <div className={`message ${author === 'gleb' ? '' : 'message--user'}`}>
-        <p style={{ visibility: 'hidden' }}>{parsedText}</p>
+        <p className="message__copy message__copy--hidden">{parsedText}</p>
         {isTypingEnabled && author === 'gleb' ? (
           <Typing
             onFinishedTyping={this.onFinishedTyping}
@@ -92,6 +109,11 @@ class Message extends React.Component {
             padding: 5px 20px;
           }
 
+          .message__copy--hidden {
+            position: static;
+            visibility: hidden;
+          }
+
           .message + .message {
             margin-top: 45px;
           }
@@ -106,7 +128,6 @@ Message.propTypes = {
   author: PropTypes.string,
   showNext: PropTypes.func,
   scrollToBottom: PropTypes.func,
-  isTypingEnabled: PropTypes.bool,
 };
 
 export default Message;

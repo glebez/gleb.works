@@ -23,7 +23,7 @@ class Messages extends React.Component {
   }
 
   render() {
-    const { messages, showNext, isTypingEnabled } = this.props;
+    const { messages, showNext } = this.props;
     return (
       <div className="messages-container" ref={this.scrollableContainer}>
         {messages &&
@@ -33,7 +33,6 @@ class Messages extends React.Component {
               author={author}
               key={text}
               showNext={showNext}
-              isTypingEnabled={isTypingEnabled}
               scrollToBottom={this.scrollToBottom}
             />
           ))}
@@ -56,7 +55,6 @@ class Messages extends React.Component {
 Messages.propTypes = {
   messages: PropTypes.array,
   showNext: PropTypes.func,
-  isTypingEnabled: PropTypes.bool,
 };
 
 export default Messages;
