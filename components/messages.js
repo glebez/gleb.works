@@ -27,11 +27,11 @@ class Messages extends React.Component {
     return (
       <div className="messages-container" ref={this.scrollableContainer}>
         {messages &&
-          messages.map(({ text, author }) => (
+          messages.map(({ text, author }, i) => (
             <Message
               text={text}
               author={author}
-              key={text}
+              key={`${text}-${i}`}
               showNext={showNext}
               scrollToBottom={this.scrollToBottom}
             />
