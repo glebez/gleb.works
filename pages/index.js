@@ -8,7 +8,10 @@ class Index extends React.Component {
       <div className="root">
         <Head>
           <title>Gleb Kostyunin Chat</title>
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
         </Head>
         <Chat />
         <style jsx>{`
@@ -24,9 +27,7 @@ class Index extends React.Component {
             left: 0;
             height: 100%;
             width: 100%;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==)
-                repeat,
-              url(https://images.unsplash.com/photo-1501560379-05951a742668?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+            background: url('/bg-pattern.png') repeat, url('/bg-image.jpeg');
             background-size: auto, cover;
             animation-name: intro;
             animation-duration: 1.5s;
@@ -49,7 +50,7 @@ class Index extends React.Component {
         `}</style>
         <style global jsx>
           {`
-            @import url('https://fonts.googleapis.com/css?family=VT323');
+            @import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
 
             * {
               box-sizing: border-box;
@@ -60,8 +61,9 @@ class Index extends React.Component {
               padding: 0;
               margin: 0;
               color: #8f8092;
-              font-family: VT323;
+              font-family: VT323, monospace;
               font-size: 24px;
+              background-color: #031c21;
             }
             a {
               color: #11fb7f;

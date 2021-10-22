@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 class Response extends React.Component {
   render() {
     const { onClick, isActive, text, markActive, id, isMuted } = this.props;
-    const className = `response ${isActive ? 'active' : ''} ${isMuted ? 'muted' : ''}`;
+    const className = `response ${isActive ? 'active' : ''} ${
+      isMuted ? 'muted' : ''
+    }`;
     return (
       <React.Fragment>
         <button
@@ -43,7 +45,7 @@ class Response extends React.Component {
           }
 
           .active:before {
-            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAYAAAC3g3x9AAAAk0lEQVRIS2NkwAEqs2r+g6Tap7Uw4lKDTRynYpoZCHMFsS4l6EKaGUiswUS7kGgDYYGPHmNnFt1EETKJU0fh4wpTRpoZiO4imHNgLoPJE3Ip3IV0M5BUlxJ0IdUNxBWGuMKUoAupbiDVvUx1AwdPOhy8eZlQnYIuT6jkpn55SKwLCbkMZg7RLqSagcQaRLQLSTUQADejstfrzOXDAAAAAElFTkSuQmCC);
+            content: url('/arrow.png');
             font-size: 0;
           }
           @media screen and (max-width: 500px) {
