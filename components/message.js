@@ -50,13 +50,15 @@ class Message extends React.Component {
   }
 
   onStartedTyping() {
-    const { scrollToBottom } = this.props;
+    const { scrollToBottom, updateScrollContainerState } = this.props;
     this.scrollerInterval = setInterval(scrollToBottom, 50);
+    updateScrollContainerState(true);
   }
 
   onFinishedTyping() {
-    const { showNext } = this.props;
+    const { showNext, updateScrollContainerState } = this.props;
     clearInterval(this.scrollerInterval);
+    updateScrollContainerState(false);
     document.removeEventListener('keydown', this.handleKeyDown);
     showNext();
   }
@@ -83,6 +85,7 @@ class Message extends React.Component {
         <style jsx>{`
           .message {
             position: relative;
+            flex-shrink: 0;
             min-height: 55px; //prevent collapsing on typing
             white-space: pre-wrap;
             padding: 5px 20px;
@@ -127,6 +130,7 @@ Message.propTypes = {
   author: PropTypes.string,
   showNext: PropTypes.func,
   scrollToBottom: PropTypes.func,
+  updateScrollContainerState: PropTypes.func,
 };
 
 export default Message;
