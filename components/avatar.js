@@ -15,10 +15,9 @@ class Avatar extends React.Component {
             align-self: end;
           }
 
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 768px) {
             .avatar {
-              margin-right: 0;
-              margin-bottom: 25px;
+              display: none;
             }
           }
         `}</style>

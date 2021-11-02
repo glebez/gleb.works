@@ -90,6 +90,12 @@ class Messages extends React.Component {
           .messages-container::-webkit-scrollbar-thumb {
             background-color: rgba(88, 6, 107, 0.75);
           }
+
+          @media screen and (max-width: 768px) {
+            .messages-container {
+              margin-bottom: 10px;
+            }
+          }
         `}</style>
       </div>
     );

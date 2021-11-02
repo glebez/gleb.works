@@ -114,6 +114,7 @@ class Message extends React.Component {
           .message__copy--hidden {
             position: static;
             visibility: hidden;
+            padding: 0;
           }
 
           .message + .message {

@@ -92,6 +92,12 @@ class Chat extends React.Component {
             max-width: 900px;
             margin: 0 auto;
           }
+
+          @media screen and (max-width: 768px) {
+            .chat__inner {
+              grid-template-columns: 1fr;
+            }
+          }
         `}</style>
       </div>
     );

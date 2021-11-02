@@ -98,6 +98,7 @@ class Responses extends React.Component {
           .container {
             grid-column-start: 2;
             margin-bottom: 25px;
+            padding-left: 10px;
           }
         `}</style>
       </div>
