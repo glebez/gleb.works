@@ -5,15 +5,9 @@ import Message from './message';
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLocked: false,
-    };
 
     this.scrollableContainer = React.createRef();
     this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.updateScrollContainerState = this.updateScrollContainerState.bind(
-      this
-    );
   }
 
   componentDidUpdate() {
@@ -29,19 +23,10 @@ class Messages extends React.Component {
     }
   }
 
-  updateScrollContainerState(locked) {
-    this.setState({ isLocked: locked });
-  }
-
   render() {
     const { messages, showNext } = this.props;
-    const { isLocked } = this.state;
     return (
-      <div
-        className={`messages-container ${isLocked &&
-          'messages-container--locked'}`}
-        ref={this.scrollableContainer}
-      >
+      <div className="messages-container" ref={this.scrollableContainer}>
         <div className="messages-container__inner">
           {messages &&
             messages.map(({ text, author }, i) => (
@@ -51,7 +36,6 @@ class Messages extends React.Component {
                 key={`${text}-${i}`}
                 showNext={showNext}
                 scrollToBottom={this.scrollToBottom}
-                updateScrollContainerState={this.updateScrollContainerState}
               />
             ))}
         </div>
@@ -71,11 +55,6 @@ class Messages extends React.Component {
             flex-direction: column;
             justify-content: flex-end;
             min-height: 100%;
-          }
-
-          .messages-container--locked {
-            padding-right: 36px;
-            overflow: hidden;
           }
         `}</style>
       </div>

@@ -64,15 +64,11 @@ class Message extends React.Component {
   }
 
   onStartedTyping() {
-    const { scrollToBottom, updateScrollContainerState } = this.props;
-    this.scrollerInterval = setInterval(scrollToBottom, 50);
-    updateScrollContainerState(true);
+    this.props.scrollToBottom();
   }
 
   onFinishedTyping() {
-    const { showNext, updateScrollContainerState } = this.props;
-    clearInterval(this.scrollerInterval);
-    updateScrollContainerState(false);
+    const { showNext } = this.props;
     document.removeEventListener('keydown', this.handleKeyDown);
     document.removeEventListener('click', this.handleClick);
     showNext();
@@ -146,7 +142,6 @@ Message.propTypes = {
   author: PropTypes.string,
   showNext: PropTypes.func,
   scrollToBottom: PropTypes.func,
-  updateScrollContainerState: PropTypes.func,
 };
 
 export default Message;
