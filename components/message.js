@@ -28,7 +28,7 @@ class Message extends React.Component {
   }
 
   handleKeyDown(e) {
-    if (e.key === 'Enter' || e.key === 'Space') {
+    if (e.key === 'Enter' || e.key === ' ') {
       this.skipTyping();
     }
   }
