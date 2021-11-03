@@ -87,7 +87,7 @@ class Chat extends React.Component {
           .chat__inner {
             display: grid;
             grid-template-columns: 1fr 9fr;
-            grid-template-rows: 3fr 1fr;
+            grid-template-rows: 2fr 1fr;
             height: 100vh;
             max-width: 900px;
             margin: 0 auto;

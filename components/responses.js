@@ -77,7 +77,7 @@ class Responses extends React.Component {
     const { activeResponseId } = this.state;
 
     return (
-      <div className="container">
+      <div className="responses-container">
         {responses &&
           responses.map(({ text, id, value }) => {
             const isActive = id === activeResponseId;
@@ -95,10 +95,11 @@ class Responses extends React.Component {
             );
           })}
         <style jsx>{`
-          .container {
+          .responses-container {
             grid-column-start: 2;
-            margin-bottom: 25px;
+            padding-top: 10px;
             padding-left: 10px;
+            overflow: auto;
           }
         `}</style>
       </div>

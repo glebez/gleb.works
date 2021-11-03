@@ -76,6 +76,17 @@ class Index extends React.Component {
             p {
               margin: 0;
             }
+            ::-webkit-scrollbar {
+              width: 15px;
+            }
+
+            ::-webkit-scrollbar-track {
+              background-color: rgba(143, 128, 146, 0.7);
+            }
+
+            ::-webkit-scrollbar-thumb {
+              background-color: rgba(88, 6, 107, 0.75);
+            }
           `}
         </style>
       </div>

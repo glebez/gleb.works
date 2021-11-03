@@ -11,7 +11,7 @@ class Avatar extends React.Component {
             margin-right: 40px;
             border-image: url('/border.png') 20 28 / 18px 32px / 15px round;
             border-style: solid;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
             align-self: end;
           }
 

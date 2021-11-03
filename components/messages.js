@@ -58,7 +58,6 @@ class Messages extends React.Component {
         <style jsx>{`
           .messages-container {
             grid-column-start: 2;
-            margin-bottom: 25px;
             overflow-y: scroll;
             align-self: end;
             height: 100%;
@@ -77,24 +76,6 @@ class Messages extends React.Component {
           .messages-container--locked {
             padding-right: 36px;
             overflow: hidden;
-          }
-
-          .messages-container::-webkit-scrollbar {
-            width: 15px;
-          }
-
-          .messages-container::-webkit-scrollbar-track {
-            background-color: rgba(143, 128, 146, 0.7);
-          }
-
-          .messages-container::-webkit-scrollbar-thumb {
-            background-color: rgba(88, 6, 107, 0.75);
-          }
-
-          @media screen and (max-width: 768px) {
-            .messages-container {
-              margin-bottom: 10px;
-            }
           }
         `}</style>
       </div>
