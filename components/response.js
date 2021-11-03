@@ -6,6 +6,7 @@ class Response extends React.Component {
     super(props);
 
     this.buttonElement = React.createRef();
+    this.onClick = this.onClick.bind(this);
   }
   componentDidUpdate() {
     const { isActive, isKeyboardActivated } = this.props;
@@ -13,6 +14,11 @@ class Response extends React.Component {
       this.buttonElement.current.scrollIntoView();
     }
   }
+  onClick(e) {
+    e.stopPropagation();
+    this.props.onClick();
+  }
+
   render() {
     const { onClick, isActive, text, markActive, id, isMuted } = this.props;
     const className = `response ${isActive ? 'active' : ''} ${
@@ -22,7 +28,7 @@ class Response extends React.Component {
       <React.Fragment>
         <button
           className={className}
-          onClick={onClick}
+          onClick={this.onClick}
           onMouseEnter={markActive.bind(null, id, false)}
           ref={this.buttonElement}
         >
