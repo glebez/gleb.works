@@ -12,6 +12,9 @@ class Index extends React.Component {
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
+          <link rel="prefetch" href="/arrow.png" />
+          <link rel="prefetch" href="/border.png" />
+          <link rel="prefetch" href="/border-alternative.png" />
         </Head>
         <Chat />
         <style jsx>{`
