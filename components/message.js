@@ -13,20 +13,34 @@ class Message extends React.Component {
     this.onStartedTyping = this.onStartedTyping.bind(this);
     this.onFinishedTyping = this.onFinishedTyping.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.skipTyping = this.skipTyping.bind(this);
   }
 
   componentDidMount() {
+    document.addEventListener('click', this.handleClick);
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
+    document.removeEventListener('click', this.handleClick);
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleKeyDown(e) {
+    if (e.key === 'Enter' || e.key === 'Space') {
+      this.skipTyping();
+    }
+  }
+
+  handleClick() {
+    this.skipTyping();
+  }
+
+  skipTyping() {
     const canSkipTyping =
       this.state.isTypingEnabled && this.props.author === 'gleb';
-    if ((e.key === 'Enter' || e.key === 'Space') && canSkipTyping) {
+    if (canSkipTyping) {
       this.setState({ isTypingEnabled: false });
       this.onFinishedTyping();
     }
@@ -60,6 +74,7 @@ class Message extends React.Component {
     clearInterval(this.scrollerInterval);
     updateScrollContainerState(false);
     document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('click', this.handleClick);
     showNext();
   }
 
