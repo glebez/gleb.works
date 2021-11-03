@@ -9,6 +9,7 @@ class Responses extends React.Component {
     this.state = {
       activeResponseId: null,
       responseIds: [],
+      isKeyboardActivated: false,
     };
 
     this.markResponseActive = this.markResponseActive.bind(this);
@@ -38,8 +39,8 @@ class Responses extends React.Component {
     });
   }
 
-  markResponseActive(id) {
-    this.setState({ activeResponseId: id });
+  markResponseActive(id, isKeyboardActivated) {
+    this.setState({ activeResponseId: id, isKeyboardActivated });
   }
 
   handleKeyDown(e) {
@@ -49,7 +50,7 @@ class Responses extends React.Component {
       if (nextActiveResponseIndex >= responseIds.length) {
         nextActiveResponseIndex = 0;
       }
-      this.markResponseActive(responseIds[nextActiveResponseIndex]);
+      this.markResponseActive(responseIds[nextActiveResponseIndex], true);
     }
 
     if (e.key === 'ArrowUp') {
@@ -58,7 +59,7 @@ class Responses extends React.Component {
       if (nextActiveResponseIndex < 0) {
         nextActiveResponseIndex = responseIds.length - 1;
       }
-      this.setState({ activeResponseId: responseIds[nextActiveResponseIndex] });
+      this.markResponseActive(responseIds[nextActiveResponseIndex], true);
     }
 
     if (e.key === 'Enter') {
@@ -74,7 +75,7 @@ class Responses extends React.Component {
   render() {
     const { responses, chosenResponseIds, handleResponse } = this.props;
 
-    const { activeResponseId } = this.state;
+    const { activeResponseId, isKeyboardActivated } = this.state;
 
     return (
       <div className="responses-container">
@@ -90,6 +91,7 @@ class Responses extends React.Component {
                 key={id}
                 id={id}
                 markActive={this.markResponseActive}
+                isKeyboardActivated={isKeyboardActivated}
                 onClick={handleResponse.bind(null, value, text, id)}
               />
             );

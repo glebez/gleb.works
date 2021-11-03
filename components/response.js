@@ -2,6 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Response extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.buttonElement = React.createRef();
+  }
+  componentDidUpdate() {
+    const { isActive, isKeyboardActivated } = this.props;
+    if (this.buttonElement.current && isActive && isKeyboardActivated) {
+      this.buttonElement.current.scrollIntoView();
+    }
+  }
   render() {
     const { onClick, isActive, text, markActive, id, isMuted } = this.props;
     const className = `response ${isActive ? 'active' : ''} ${
@@ -12,7 +23,8 @@ class Response extends React.Component {
         <button
           className={className}
           onClick={onClick}
-          onMouseEnter={markActive.bind(null, id)}
+          onMouseEnter={markActive.bind(null, id, false)}
+          ref={this.buttonElement}
         >
           {text}
         </button>
@@ -66,6 +78,7 @@ Response.propTypes = {
   isMuted: PropTypes.bool,
   text: PropTypes.string,
   id: PropTypes.string,
+  isKeyboardActivated: PropTypes.bool,
 };
 
 export default Response;
