@@ -21,6 +21,7 @@ const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
   const handleKeyDown = e => {
     if (!responses?.length) return;
     if (e.key === 'ArrowDown') {
+      e.preventDefault();
       let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
       if (nextActiveResponseIndex >= responseIds.length) {
         nextActiveResponseIndex = 0;
@@ -29,6 +30,7 @@ const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
     }
 
     if (e.key === 'ArrowUp') {
+      e.preventDefault();
       let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
       if (nextActiveResponseIndex < 0) {
         nextActiveResponseIndex = responseIds.length - 1;
@@ -38,6 +40,7 @@ const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
 
     if (e.key === 'Enter') {
       if (activeResponseId) {
+        e.preventDefault();
         const response = responses[responseIds.indexOf(activeResponseId)];
         handleResponse(response.value, response.text, response.id);
       }
