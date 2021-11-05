@@ -8,22 +8,6 @@ const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
   const [isKeyboardActivated, setIsKeyboardActivated] = useState(false);
   const resopnsesContainer = React.createRef();
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    setupResponsesState();
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  useEffect(
-    () => {
-      setupResponsesState();
-    },
-    [responses]
-  );
-
   const markResponseActive = (id, isKeyboardActivated) => {
     setActiveResponseId(id);
     setIsKeyboardActivated(isKeyboardActivated);
@@ -35,34 +19,48 @@ const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
   };
 
   const handleKeyDown = e => {
-    if (
-      resopnsesContainer.current &&
-      resopnsesContainer.current.contains(e.target)
-    ) {
-      if (e.key === 'ArrowDown') {
-        let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
-        if (nextActiveResponseIndex >= responseIds.length) {
-          nextActiveResponseIndex = 0;
-        }
-        markResponseActive(responseIds[nextActiveResponseIndex], true);
+    if (!responses?.length) return;
+    if (e.key === 'ArrowDown') {
+      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
+      if (nextActiveResponseIndex >= responseIds.length) {
+        nextActiveResponseIndex = 0;
       }
+      markResponseActive(responseIds[nextActiveResponseIndex], true);
+    }
 
-      if (e.key === 'ArrowUp') {
-        let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
-        if (nextActiveResponseIndex < 0) {
-          nextActiveResponseIndex = responseIds.length - 1;
-        }
-        markResponseActive(responseIds[nextActiveResponseIndex], true);
+    if (e.key === 'ArrowUp') {
+      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
+      if (nextActiveResponseIndex < 0) {
+        nextActiveResponseIndex = responseIds.length - 1;
       }
+      markResponseActive(responseIds[nextActiveResponseIndex], true);
+    }
 
-      if (e.key === 'Enter') {
-        if (activeResponseId) {
-          const response = responses[responseIds.indexOf(activeResponseId)];
-          handleResponse(response.value, response.text, response.id);
-        }
+    if (e.key === 'Enter') {
+      if (activeResponseId) {
+        const response = responses[responseIds.indexOf(activeResponseId)];
+        handleResponse(response.value, response.text, response.id);
       }
     }
   };
+
+  useEffect(
+    () => {
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    },
+    [responses, responseIds, activeResponseId]
+  );
+
+  useEffect(
+    () => {
+      setupResponsesState();
+    },
+    [responses]
+  );
 
   return (
     <div className="responses-container" ref={resopnsesContainer}>

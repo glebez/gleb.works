@@ -20,6 +20,9 @@ class Message extends React.Component {
   componentDidMount() {
     document.addEventListener('click', this.handleClick);
     document.addEventListener('keydown', this.handleKeyDown);
+    if (this.props.author !== 'gleb') {
+      this.props.showNext();
+    }
   }
 
   componentWillUnmount() {
