@@ -1,113 +1,99 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Response from './response';
 
-class Responses extends React.Component {
-  constructor(props) {
-    super(props);
+const Responses = ({ responses, chosenResponseIds, handleResponse }) => {
+  const [activeResponseId, setActiveResponseId] = useState(null);
+  const [responseIds, setResponseIds] = useState([]);
+  const [isKeyboardActivated, setIsKeyboardActivated] = useState(false);
+  const resopnsesContainer = React.createRef();
 
-    this.state = {
-      activeResponseId: null,
-      responseIds: [],
-      isKeyboardActivated: false,
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    setupResponsesState();
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
     };
+  }, []);
 
-    this.markResponseActive = this.markResponseActive.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.setupResponsesState = this.setupResponsesState.bind(this);
-  }
+  useEffect(
+    () => {
+      setupResponsesState();
+    },
+    [responses]
+  );
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
-    this.setupResponsesState();
-  }
+  const markResponseActive = (id, isKeyboardActivated) => {
+    setActiveResponseId(id);
+    setIsKeyboardActivated(isKeyboardActivated);
+  };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.responses !== this.props.responses) {
-      this.setupResponsesState();
-    }
-  }
+  const setupResponsesState = () => {
+    markResponseActive(responses[0].id);
+    setResponseIds(responses.map(response => response.id));
+  };
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  setupResponsesState() {
-    this.markResponseActive(this.props.responses[0].id);
-    this.setState({
-      responseIds: this.props.responses.map(response => response.id),
-    });
-  }
-
-  markResponseActive(id, isKeyboardActivated) {
-    this.setState({ activeResponseId: id, isKeyboardActivated });
-  }
-
-  handleKeyDown(e) {
-    if (e.key === 'ArrowDown') {
-      const { activeResponseId, responseIds } = this.state;
-      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
-      if (nextActiveResponseIndex >= responseIds.length) {
-        nextActiveResponseIndex = 0;
+  const handleKeyDown = e => {
+    if (
+      resopnsesContainer.current &&
+      resopnsesContainer.current.contains(e.target)
+    ) {
+      if (e.key === 'ArrowDown') {
+        let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) + 1;
+        if (nextActiveResponseIndex >= responseIds.length) {
+          nextActiveResponseIndex = 0;
+        }
+        markResponseActive(responseIds[nextActiveResponseIndex], true);
       }
-      this.markResponseActive(responseIds[nextActiveResponseIndex], true);
-    }
 
-    if (e.key === 'ArrowUp') {
-      const { activeResponseId, responseIds } = this.state;
-      let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
-      if (nextActiveResponseIndex < 0) {
-        nextActiveResponseIndex = responseIds.length - 1;
+      if (e.key === 'ArrowUp') {
+        let nextActiveResponseIndex = responseIds.indexOf(activeResponseId) - 1;
+        if (nextActiveResponseIndex < 0) {
+          nextActiveResponseIndex = responseIds.length - 1;
+        }
+        markResponseActive(responseIds[nextActiveResponseIndex], true);
       }
-      this.markResponseActive(responseIds[nextActiveResponseIndex], true);
-    }
 
-    if (e.key === 'Enter') {
-      const { activeResponseId, responseIds } = this.state;
-      const { responses } = this.props;
-      if (activeResponseId) {
-        const response = responses[responseIds.indexOf(activeResponseId)];
-        this.props.handleResponse(response.value, response.text, response.id);
+      if (e.key === 'Enter') {
+        if (activeResponseId) {
+          const response = responses[responseIds.indexOf(activeResponseId)];
+          handleResponse(response.value, response.text, response.id);
+        }
       }
     }
-  }
+  };
 
-  render() {
-    const { responses, chosenResponseIds, handleResponse } = this.props;
-
-    const { activeResponseId, isKeyboardActivated } = this.state;
-
-    return (
-      <div className="responses-container">
-        {responses &&
-          responses.map(({ text, id, value }) => {
-            const isActive = id === activeResponseId;
-            const isMuted = chosenResponseIds.indexOf(id) > -1;
-            return (
-              <Response
-                isActive={isActive}
-                isMuted={!isActive && isMuted}
-                text={text}
-                key={id}
-                id={id}
-                markActive={this.markResponseActive}
-                isKeyboardActivated={isKeyboardActivated}
-                onClick={handleResponse.bind(null, value, text, id)}
-              />
-            );
-          })}
-        <style jsx>{`
-          .responses-container {
-            grid-column-start: 2;
-            padding-top: 10px;
-            padding-left: 10px;
-            overflow: auto;
-          }
-        `}</style>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="responses-container" ref={resopnsesContainer}>
+      {responses &&
+        responses.map(({ text, id, value }) => {
+          const isActive = id === activeResponseId;
+          const isMuted = chosenResponseIds.indexOf(id) > -1;
+          return (
+            <Response
+              isActive={isActive}
+              isMuted={!isActive && isMuted}
+              text={text}
+              key={id}
+              id={id}
+              markActive={markResponseActive}
+              isKeyboardActivated={isKeyboardActivated}
+              onClick={handleResponse.bind(null, value, text, id)}
+            />
+          );
+        })}
+      <style jsx>{`
+        .responses-container {
+          grid-column-start: 2;
+          padding-top: 10px;
+          padding-left: 10px;
+          overflow: auto;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 Responses.propTypes = {
   responses: PropTypes.arrayOf(PropTypes.object),
