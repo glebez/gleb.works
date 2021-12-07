@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const Response = ({
-  onClick,
+const Response = React.forwardRef(({
+  onSubmit,
   isActive,
   text,
-  markActive,
-  id,
+  markFocused,
   isMuted,
   isKeyboardActivated,
-}) => {
-  const buttonElement = React.createRef();
+}, ref) => {
+  const buttonElement = ref;
 
+  // TODO: Make work with new focus
   useEffect(
     () => {
       if (buttonElement.current && isActive && isKeyboardActivated) {
@@ -23,18 +23,27 @@ const Response = ({
 
   const handleClick = e => {
     e.stopPropagation();
-    onClick();
+    onSubmit();
   };
 
-  const className = `response ${isActive ? 'active' : ''} ${
+  const handleKeyDown = e => {
+    if (e.key === "Enter") {
+      e.stopPropagation();
+      onSubmit();
+    }
+  }
+
+  const className = `response ${
     isMuted ? 'muted' : ''
   }`;
+
   return (
-    <React.Fragment>
+    <li>
       <button
         className={className}
         onClick={handleClick}
-        onMouseEnter={markActive.bind(null, id, false)}
+        onMouseEnter={markFocused}
+        onKeyDown={handleKeyDown}
         ref={buttonElement}
       >
         {text}
@@ -54,7 +63,7 @@ const Response = ({
           text-align: left;
         }
 
-        .response:before {
+        .response::before {
           content: '- ';
           min-width: 30px;
         }
@@ -63,32 +72,34 @@ const Response = ({
           color: #998b9c;
         }
 
-        .active {
+        .response:focus {
           color: #11fb7f;
+          outline: none;
         }
 
-        .active:before {
+        .response:focus::before {
           content: url('/arrow.png');
           font-size: 0;
         }
+
         @media screen and (max-width: 500px) {
           .response {
             font-size: 24px;
           }
         }
       `}</style>
-    </React.Fragment>
+    </li>
   );
-};
+});
+
+Response.displayName = 'Response';
 
 Response.propTypes = {
-  onClick: PropTypes.func,
-  markActive: PropTypes.func,
-  isActive: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  markFocused: PropTypes.func,
   isMuted: PropTypes.bool,
   text: PropTypes.string,
   id: PropTypes.string,
-  isKeyboardActivated: PropTypes.bool,
 };
 
 export default Response;
