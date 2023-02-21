@@ -7,7 +7,7 @@ class Index extends React.Component {
     return (
       <div className="root">
         <Head>
-          <title>Gleb Kostyunin Chat</title>
+          <title>chatGLB</title>
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
