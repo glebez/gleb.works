@@ -3,6 +3,23 @@ import Head from 'next/head';
 import Chat from '../components/chat';
 
 class Index extends React.Component {
+  componentDidMount() {
+    if (!('doNotTrack' in navigator) || !(navigator?.doNotTrack === '1')) {
+      let analytics = {};
+
+      analytics['href'] = window.location.href;
+      analytics['userAgent'] = navigator.userAgent;
+      analytics['width'] = window.innerWidth;
+      analytics['referrer'] = document.referrer;
+      analytics['platform'] = navigator.platform;
+      analytics['date'] = new Date().toUTCString();
+
+      navigator?.sendBeacon(
+        'https://us-central1-analytics-c2223.cloudfunctions.net/handler',
+        JSON.stringify(analytics)
+      );
+    }
+  }
   render() {
     return (
       <div className="root">
