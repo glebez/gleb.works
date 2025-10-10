@@ -40,6 +40,7 @@ export class ChatGlb extends LitElement {
       grid-template-columns: 1fr 9fr;
       grid-template-rows: 2fr 1fr;
       height: 100vh;
+      height: 100dvh;
       max-width: 900px;
       margin: 0 auto;
     }
@@ -54,6 +55,7 @@ export class ChatGlb extends LitElement {
       display: flex;
       flex-direction: column;
       height: 100vh;
+      height: 100dvh;
     }
     .responses-container {
       flex-shrink: 0;
