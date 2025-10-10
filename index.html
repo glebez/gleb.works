@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>chatGLB</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="prefetch" href="assets/arrow.png" />
+    <link rel="prefetch" href="assets/border.png" />
+    <link rel="prefetch" href="assets/border-alternative.png" />
+    <base href="/" />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        color: #8f8092;
+        font-family: VT323, monospace;
+        font-size: 24px;
+        background-color: #031c21;
+      }
+      main {
+        position: relative;
+        height: 100vh;
+        --bg-pattern: url('assets/bg-pattern.png');
+        --bg-image: url('assets/bg-image.jpeg');
+      }
+      main:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background:
+          var(--bg-pattern) repeat,
+          var(--bg-image);
+        background-size: auto, cover;
+        animation-name: intro;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards;
+      }
+
+      p {
+        margin: 0;
+      }
+      @keyframes intro {
+        from {
+          filter: blur(0) brightness(1);
+        }
+        to {
+          filter: blur(0.5px) brightness(0.6);
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        main {
+          padding: 0;
+        }
+      }
+    </style>
+    <title>chat-glb</title>
+  </head>
+
+  <body>
+    <main>
+      <chat-glb></chat-glb>
+    </main>
+
+    <script type="module" src="./out-tsc/src/chat-glb.js"></script>
+  </body>
+</html>
