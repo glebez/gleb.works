@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import Response from './brains/response.js';
-import './chat-response.js';
 import { sharedStyles } from './shared-styles.js';
 
 @customElement('chat-responses')
