@@ -1,30 +1,11 @@
-<p align="center">
-  <img width="200" src="https://open-wc.org/hero.png"></img>
-</p>
+## Personal page of Gleb Kostyunin
 
-## Open-wc Starter App
+This is a repo for my personal page that is located at [gleb.works](https://gleb.works).
 
-[![Built with open-wc recommendations](https://img.shields.io/badge/built%20with-open--wc-blue.svg)](https://github.com/open-wc)
+![gleb.works screenshot](https://pbs.twimg.com/media/DwVFZ8DXcAE4che.jpg:large)
 
-## Quickstart
+For a very long time working in web dev I didn't have a personal page, because I didn't want just another Bootstrapy-feeling CV page on one hand and didn't have another idea worth enough to spend my time on it.
 
-To get started:
+Luckily, the situation changed during my winter break, when I was nostalging over the games of my childhood, like Full Throttle, Monkey Island or Grim Fandango. I was inspired by dialogue mechanics in those games and went for that retro feel with a sprinkle of cyberpunk.
 
-```sh
-npm init @open-wc
-# requires node 10 & npm 6 or higher
-```
-
-## Scripts
-
-- `start` runs your app for development, reloading on file changes
-- `start:build` runs your app after it has been built using the build command
-- `build` builds your app and outputs it in your `dist` directory
-- `test` runs your test suite with Web Test Runner
-- `lint` runs the linter for your project
-
-## Tooling configs
-
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-
-If you customize the configuration a lot, you can consider moving them to individual files.
+The project is built with Lit and Web Components.
