@@ -58,6 +58,7 @@ export default {
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
       navigateFallback: '/index.html',
+      navigateFallbackDenylist: [/^\/assets\//, /\.pdf$/i],
       // where to output the generated sw
       swDest: path.join('dist', 'sw.js'),
       // directory to match patterns against to be precached
