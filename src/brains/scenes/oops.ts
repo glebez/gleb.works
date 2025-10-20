@@ -3,8 +3,9 @@ import menus from '../menus/index.js';
 import { SceneReturn } from './types.js';
 
 export default function oops(): SceneReturn {
-  let messages = [
-    "That happens! Did you know that on level 5 you can improve the growth of potatoes 30% by using ACME fertiliser mixed half-n-half with gasoline? The side effect is some of your clients may explode, but well... that's life. Thank me later, gotta run!"];
+  const messages = [
+    "All right, let's do it this way: you send me your homework by post. Please, also put some cash in the envelope, to get some... erm... chatGLB™ credits. I'll get it done for you in no time, just 3-5 buisness months. Meanwhile I will be chugging water to level with chatGPT consumption. Do we have a deal?",
+  ];
 
   return {
     messages: messages.map(text => new Message(text)),

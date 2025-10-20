@@ -8,6 +8,7 @@ import personal from './personal.js';
 import links from './links.js';
 import contacts from './contacts.js';
 import oops from './oops.js';
+import site from './site.js';
 
 export default {
   welcome,
@@ -15,6 +16,7 @@ export default {
   links,
   contacts,
   oops,
+  site,
   personal,
   profIntro,
   profRemote,
