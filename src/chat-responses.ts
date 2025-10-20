@@ -11,7 +11,6 @@ export class ChatResponses extends LitElement {
     sharedStyles,
     css`
       :host {
-        padding-top: 10px;
         padding-left: 10px;
         overflow: auto;
       }
@@ -53,6 +52,10 @@ export class ChatResponses extends LitElement {
       }
 
       @media screen and (max-width: 500px) {
+        fieldset {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
         label {
           font-size: 24px;
         }
