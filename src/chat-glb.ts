@@ -59,13 +59,6 @@ export class ChatGlb extends LitElement {
     }
     .responses-container {
       flex-shrink: 0;
-      max-height: 30vh;
-      max-height: 30dvh;
-      overflow-y: auto;
-      scrollbar-color: rgba(88, 6, 107, 0.75) rgba(143, 128, 146, 0.7);
-      scrollbar-width: thin;
-      scrollbar-gutter: stable;
-      scrollbar-gutter: stable;
     }
 
     .hidden {
