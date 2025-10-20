@@ -78,6 +78,7 @@ export class ChatGlb extends LitElement {
   `;
 
   protected firstUpdated(): void {
+    window.scrollTo(0, 1);
     const { messages, responses } = this.chat.trigger('welcome');
     this.messagesToShow = messages;
     this.responses = responses;
