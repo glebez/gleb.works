@@ -49,6 +49,9 @@ export class ChatGlb extends LitElement {
       .inner {
         grid-template-columns: 1fr;
       }
+      .hidden {
+        display: none;
+      }
     }
 
     .chat-container {
@@ -82,6 +85,9 @@ export class ChatGlb extends LitElement {
   moveMessageToVisibleMessages() {
     if (!this.messagesToShow.length) {
       this.isDoneShowingMessages = true;
+      setTimeout(() => {
+        this.scrollMessagesToBottom();
+      }, 10);
       return;
     }
     const [next, ...rest] = this.messagesToShow;
