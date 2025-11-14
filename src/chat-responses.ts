@@ -113,7 +113,7 @@ export class ChatResponses extends LitElement {
   submitForm(): void {
     const form = this.shadowRoot?.querySelector('form');
     if (form) {
-      form.dispatchEvent(new SubmitEvent('submit'));
+      form.dispatchEvent(new SubmitEvent('submit', { cancelable: true }));
     }
   }
 
